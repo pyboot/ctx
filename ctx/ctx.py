@@ -1,5 +1,4 @@
 import importlib
-from typing import Dict
 import os
 from .basic.exceptions import CtxException
 from .service.utils.ctx import Ctx as Utils
@@ -42,6 +41,22 @@ class Ctx(object):
         self.__dict__.update(state)
 
 
+# _current_pid = 0
+# _ctx_obj: Ctx
+#
+#
+# # 进程间单例
+# def get_ctx():
+#     global _current_pid, _ctx_obj
+#     pid = os.getpid()
+#     if pid != _current_pid:
+#         _ctx_obj = Ctx()
+#         # _ctx_obj.utils.init_app()
+#         _current_pid = pid
+#
+#     return _ctx_obj
+
+
 # 单例
 ctx = Ctx()
-ctx.utils.init_app()
+# ctx.utils.init_app()
