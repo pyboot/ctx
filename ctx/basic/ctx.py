@@ -6,7 +6,18 @@ from .helpers import snake_to_camel
 
 
 class Ctx(object):
-    ctx = None  # type: app_ctx.Ctx
+    _ctx = None
+
+    @property
+    def ctx(self) -> app_ctx.Ctx:
+        return self._ctx
+
+    @ctx.setter
+    def ctx(self, ctx_obj):
+        if isinstance(ctx_obj, app_ctx.Ctx):
+            raise ValueError('ctx type error!')
+        self._ctx = ctx_obj
+
     _ctx_root = ""
 
     _mod_name = ""
