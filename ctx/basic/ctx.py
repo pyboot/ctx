@@ -6,16 +6,18 @@ from .helpers import snake_to_camel
 
 
 class Ctx(object):
-    _ctx = None
+    _ctx = None     # type: app_ctx.Ctx
 
     @property
-    def ctx(self) -> app_ctx.Ctx:
+    def ctx(self):
         return self._ctx
 
     @ctx.setter
     def ctx(self, ctx_obj):
-        if isinstance(ctx_obj, app_ctx.Ctx):
-            raise ValueError('ctx type error!')
+        if self._ctx is not None:
+            raise CtxException('ctx repeat setting')
+        if not isinstance(ctx_obj, app_ctx.Ctx):
+            raise ValueError('ctx type error')
         self._ctx = ctx_obj
 
     _ctx_root = ""

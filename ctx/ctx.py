@@ -8,14 +8,14 @@ class Ctx(object):
     # !!! 此处定义属性只是为了方便 ide 跳转，不要赋值任何初值
     utils: Utils
 
-    ctx_root = "ctx"
+    _ctx_root = "ctx"
 
     def __getitem__(self, method):
         return getattr(self, method)
 
     def __getattr__(self, mod_name):
         # import module
-        module_name = '{}.service.{}.ctx'.format(self.ctx_root, mod_name)
+        module_name = '{}.service.{}.ctx'.format(self._ctx_root, mod_name)
         module = importlib.import_module(module_name)
 
         # get class
@@ -29,7 +29,7 @@ class Ctx(object):
         service = service_class()
         setattr(self, mod_name, service)
         setattr(service, 'ctx', self)
-        service.init_ctx_service(self.ctx_root, mod_name)
+        service.init_ctx_service(self._ctx_root, mod_name)
         return service
 
     # 多进程用到
